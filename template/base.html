@@ -1,0 +1,25 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en"  ng-app="userApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashy</title>
+
+    <link rel="stylesheet" href="{% static 'node_modules/onsenui/css/onsenui.css' %}"/>
+    <link rel="stylesheet" href="{% static 'node_modules/onsenui/css/onsen-css-components.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+
+
+    <script type="text/javascript" src="{% static 'node_modules/angular/angular.js' %}"></script>
+    <script type="text/javascript" src="{% static 'node_modules/angular-ui-router/release/angular-ui-router.js' %}"></script>
+    <script type="text/javascript" src="{% static 'node_modules/onsenui/js/onsenui.js' %}"></script>
+    <script type="text/javascript" src="{% static 'node_modules/angularjs-onsenui/dist/angularjs-onsenui.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/entry.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
