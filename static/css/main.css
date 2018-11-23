@@ -3,3 +3,25 @@ body,html{
     height: 100%;
     margin: 0;
 }
+
+.carousel-footer{
+    bottom: 10%;
+    display: inline-flex;
+    position: absolute;
+    z-index: 999;
+    width: 40%;
+    left: 30%;
+    height: 50px;
+    justify-content: space-around;
+}
+
+.carousel-footer > span{
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+ons-input{
+    margin: 20px 0;
+}
