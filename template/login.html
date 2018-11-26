@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-{% csrf_token %}
 
 {% block content %}
 <ons-page ng-controller="LoginController">
-  <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+  <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" auto-scroll-ratio="0.3">
     <ons-carousel-item style="background-color: #085078;">
       <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-        Welcome1
+        {{test}}
       </div>
     </ons-carousel-item>
     <ons-carousel-item style="background-color: #373B44;">
@@ -21,24 +20,28 @@
     </ons-carousel-item>
     <ons-carousel-item>
       <div style="text-align: center; margin-top: 50%">
-        <div>
-          <ons-input id="username" modifier="material" placeholder="Username" float ng-model="loginInfo.username"></ons-input>
-        </div>
-        <div>
-          <ons-input id="password" modifier="material" type="password" placeholder="Password" float ng-model="loginInfo.password"></ons-input>
-        </div>
-        <p style="margin-top: 30px;">
-          <ons-button ng-click="login()">Sign in</ons-button>
-        </p>
+        <form>
+            {% csrf_token %}
+          <div>
+            <ons-input id="username" modifier="material" placeholder="Username" float ng-model="loginInfo.username"></ons-input>
+          </div>
+          <div>
+            <ons-input id="password" modifier="material" type="password" placeholder="Password" float ng-model="loginInfo.password"></ons-input>
+          </div>
+          <p style="margin-top: 30px;">
+            <ons-button ng-click="login()">Sign in</ons-button>
+          </p>
+        </form>
+        
       </div>
     </ons-carousel-item>
   </ons-carousel>
 
 
-<div class="carousel-footer" ng-show="showCarouselFooter">
-  <span ng-click="switch(0)"></span>
-  <span ng-click="switch(1)"></span>
-  <span ng-click="switch(2)"></span>
-</div>
+  <div class="carousel-footer" ng-show="showCarouselFooter">
+    <span ng-click="switch(0)"></span>
+    <span ng-click="switch(1)"></span>
+    <span ng-click="switch(2)"></span>
+  </div>
 </ons-page>
 {% endblock %}
