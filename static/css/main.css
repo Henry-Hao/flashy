@@ -4,6 +4,11 @@ body,html{
     margin: 0;
 }
 
+
 md-input-container label{
     text-align: left;
+}
+
+.full-screen{
+    height:652px;
 }

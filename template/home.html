@@ -2,10 +2,45 @@
 
 {% block content %}
 {% verbatim  %}
-<div ng-controller="homeController">
+<div ng-controller="homeController" layout="column">
+    <md-content>
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-icon>Logo</md-icon>
 
-{{ test }}
+                <h2 flex style="text-align:center">Flashy</h2>
 
+                <md-button class="md-icon-button" aria-label="Menu">
+                <md-icon md-svg-icon="static/img/menu.svg"></md-icon>
+                </md-button>
+
+            </div>
+        </md-toolbar>
+        <md-tabs ng-style="{height: hgt+'px'}" md-align-tabs="bottom" md-swipe-content="true" md-stretch-tabs="always">
+            <md-tab id="tab1" >
+                <md-tab-label>
+                    <md-icon md-svg-src="static/img/book.svg" alt=Home></md-icon>
+                    Home
+                </md-tab-label>
+                <md-tab-body>
+                    View for Item #1<br/>
+
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab id="tab2">
+                <md-tab-label>
+                    <md-icon md-svg-src="static/img/add.svg" alt=New></md-icon>
+                    Add new cards
+                </md-tab-label>
+                <md-tab-body>
+                    View for Item #2<br/>
+
+                </md-tab-body>
+            </md-tab>
+
+        </md-tabs>
+    </md-content>
 </div>
 {% endverbatim  %}
 {% endblock %}

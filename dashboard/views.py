@@ -13,7 +13,7 @@ import json
 @csrf_exempt
 def index(request):
     if request.user.is_authenticated:
-        return TemplateResponse(request, 'index.html')
+        return TemplateResponse(request, 'home.html')
     else:
         return TemplateResponse(request, 'login.html')
 
