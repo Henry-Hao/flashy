@@ -1,47 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ons-page ng-controller="LoginController">
-  <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel" auto-scroll-ratio="0.3">
-    <ons-carousel-item style="background-color: #085078;">
-      <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-        {{test}}
-      </div>
-    </ons-carousel-item>
-    <ons-carousel-item style="background-color: #373B44;">
-      <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-        Welcome2
-      </div>
-    </ons-carousel-item>
-    <ons-carousel-item style="background-color: #D38312;">
-      <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-        Welcome3
-      </div>
-    </ons-carousel-item>
-    <ons-carousel-item>
-      <div style="text-align: center; margin-top: 50%">
-        <form>
-            {% csrf_token %}
-          <div>
-            <ons-input id="username" modifier="material" placeholder="Username" float ng-model="loginInfo.username"></ons-input>
-          </div>
-          <div>
-            <ons-input id="password" modifier="material" type="password" placeholder="Password" float ng-model="loginInfo.password"></ons-input>
-          </div>
-          <p style="margin-top: 30px;">
-            <ons-button ng-click="login()">Sign in</ons-button>
-          </p>
-        </form>
-        
-      </div>
-    </ons-carousel-item>
-  </ons-carousel>
+{% verbatim %}
+<div ng-controller="LoginController">
+    <div uib-carousel active='0' no-wrap="true" template-url="/static/bootstrap-template/carousel.html"  >
+        <div uib-slide ng-repeat="page in pages track by $index" index="$index">
+            <div ng-style="page.style">
+            <h1 class="carousel-caption">
+                {{ page.content }}
+            </h1>
+            </div>
+        </div>
 
+        <div uib-slide index="pages.length">
+            <div style="background-color:rgb(250, 255, 189);height:{{ height }}px">
+            <md-content style="display:initial">
+                <form class="col-xs-offset-3 col-xs-6 form-group" style="display:block;top:25%;">
+                {% endverbatim %}
+                {% csrf_token %}
+                {% verbatim %}
+                <md-input-container class="md-block" flex-xs>
+                    <label>Username</label>
+                    <input ng-model="loginInfo.username">
+                </md-input-container>
 
-  <div class="carousel-footer" ng-show="showCarouselFooter">
-    <span ng-click="switch(0)"></span>
-    <span ng-click="switch(1)"></span>
-    <span ng-click="switch(2)"></span>
-  </div>
-</ons-page>
+                <md-input-container class="md-block" flex-xs>
+                    <label>Password</label>
+                    <input type="password" ng-model="loginInfo.password">
+                </md-input-container>
+
+                <md-button class="md-raised md-primary" ng-click="login()">
+                    Login
+                </md-button>
+                </form>
+                </md-content>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endverbatim %}
 {% endblock %}

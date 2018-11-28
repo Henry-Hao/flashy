@@ -1,18 +1,21 @@
-var myApp = angular.module('userApp',['ng','ui.router','onsen']);
-myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider){
+var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial','ui.bootstrap']);
+myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemingProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrfmiddlewaretoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-    var state = [
-        {
-            name:'home',
-            url:'/home',
-            component:'flCard'
-        }
-    ];
+    $mdThemingProvider.theme('docs-dark', 'default')
+      .primaryPalette('blue');
 
-    state.forEach(state => {
-        $stateProvider.state(state);
-    });
-    $urlRouterProvider.when('','/home');
+    // var state = [
+    //     {
+    //         name:'home',
+    //         url:'/home',
+    //         component:'flCard'
+    //     }
+    // ];
+
+    // state.forEach(state => {
+    //     $stateProvider.state(state);
+    // });
+    // $urlRouterProvider.when('','/home');
 })
