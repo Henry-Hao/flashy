@@ -2,7 +2,7 @@
 
 {% block content %}
 {% verbatim  %}
-<div ng-controller="homeController" layout="column">
+<div ng-controller="homeController" layout="column" ng-cloak>
     <md-content>
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
@@ -16,7 +16,7 @@
 
             </div>
         </md-toolbar>
-        <md-tabs ng-style="{height: hgt+'px'}" md-align-tabs="bottom" md-swipe-content="true" md-stretch-tabs="always">
+        <md-tabs set-height="underToolbar" md-align-tabs="bottom" md-swipe-content="true" md-stretch-tabs="always">
             <md-tab id="tab1" >
                 <md-tab-label>
                     <md-icon md-svg-src="static/img/book.svg" alt=Home></md-icon>
