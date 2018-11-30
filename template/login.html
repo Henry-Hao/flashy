@@ -6,9 +6,9 @@
     <div uib-carousel active='0' no-wrap="true" template-url="/static/bootstrap-template/carousel.html"  >
         <div uib-slide ng-repeat="page in pages track by $index" index="$index">
             <div ng-style="page.style" class="full-screen">
-            <h1 class="carousel-caption">
-                {{ page.content }}
-            </h1>
+                <h1 class="carousel-caption">
+                    {{ page.content }}
+                </h1>
             </div>
         </div>
 
