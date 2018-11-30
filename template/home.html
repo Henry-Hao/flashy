@@ -2,8 +2,23 @@
 
 {% block content %}
 {% verbatim  %}
-<div ng-controller="homeController" layout="column" ng-cloak>
+<div ng-controller="homeController" layout="column" ng-cloak flex>
     <md-content>
+        <md-sidenav class="md-sidenav-right" md-component-id="menu" md-whiteframe="4" >
+
+            <md-toolbar class="md-theme-indigo">
+                <md-button class="md-icon-button" aria-label="Menu">
+                    <md-icon md-svg-icon="static/img/back.svg" ng-click="toggleMenu()"></md-icon>
+                </md-button>
+            </md-toolbar>
+            
+            <div layout-padding>
+                <md-list>
+                </md-list>
+            </div>
+            
+
+        </md-sidenav>
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
                 <md-icon>Logo</md-icon>
@@ -11,7 +26,7 @@
                 <h2 flex style="text-align:center" ng-click="toggleFullScreen()">Flashy</h2>
 
                 <md-button class="md-icon-button" aria-label="Menu">
-                <md-icon md-svg-icon="static/img/menu.svg"></md-icon>
+                    <md-icon md-svg-icon="static/img/menu.svg" ng-click="toggleMenu()"></md-icon>
                 </md-button>
 
             </div>

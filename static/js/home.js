@@ -1,11 +1,12 @@
-angular.module('userApp').controller('homeController',function($scope){
+angular.module('userApp').controller('homeController',function($scope, $mdSidenav){
+
 
     // toggle fullscreen
-    document.body.addEventListener('touchend',function(){
-        document.documentElement.webkitRequestFullScreen();
-        document.querySelector('#md-tabs').classList.remove('under-toolbar');
-        document.querySelector('#md-tabs').classList.add('full-screen');
-    },{once:true})
+    // document.body.addEventListener('touchend',function(){
+    //     document.documentElement.webkitRequestFullScreen();
+    //     document.querySelector('#md-tabs').classList.remove('under-toolbar');
+    //     document.querySelector('#md-tabs').classList.add('full-screen');
+    // },{once:true})
 
 
 
@@ -21,6 +22,10 @@ angular.module('userApp').controller('homeController',function($scope){
                 document.querySelector('#md-tabs').classList.remove('full-screen');
             }
         }
+    }
+
+    $scope.toggleMenu = function(){
+        $mdSidenav('menu').toggle();
     }
 
 })

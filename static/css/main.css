@@ -13,3 +13,11 @@ md-input-container label{
 .under-toolbar{
     height: calc(var(--height) - 56px)
 }
+
+md-sidenav, 
+md-sidenav.md-locked-open, 
+md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 20px !important;
+    width: auto !important;
+    max-width: 400px !important;
+} 
