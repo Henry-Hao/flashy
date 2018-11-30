@@ -8,7 +8,7 @@
             <div class="md-toolbar-tools">
                 <md-icon>Logo</md-icon>
 
-                <h2 flex style="text-align:center">Flashy</h2>
+                <h2 flex style="text-align:center" ng-click="toggleFullScreen()">Flashy</h2>
 
                 <md-button class="md-icon-button" aria-label="Menu">
                 <md-icon md-svg-icon="static/img/menu.svg"></md-icon>
@@ -16,7 +16,7 @@
 
             </div>
         </md-toolbar>
-        <md-tabs class="underToolbar" md-align-tabs="bottom" md-swipe-content="true" md-stretch-tabs="always">
+        <md-tabs class="under-toolbar" id="md-tabs" md-align-tabs="bottom" md-swipe-content="true" md-stretch-tabs="always">
             <md-tab id="tab1" >
                 <md-tab-label>
                     <md-icon md-svg-src="static/img/book.svg" alt=Home></md-icon>

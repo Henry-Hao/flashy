@@ -6,6 +6,8 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
     $mdThemingProvider.theme('docs-dark', 'default')
       .primaryPalette('blue');
 
+    
+
     // var state = [
     //     {
     //         name:'home',

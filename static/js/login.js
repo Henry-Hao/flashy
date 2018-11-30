@@ -1,4 +1,9 @@
-myApp.controller("LoginController", function($scope, $http){
+myApp.controller("LoginController", function($scope, $http, $document){
+    // toggle fullscreen
+    $document[0].body.addEventListener('touchend',function(){
+        $document[0].documentElement.webkitRequestFullScreen();
+    },{once:true})
+
     $scope.pages = [
         {
             style:{

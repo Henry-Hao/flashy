@@ -7,9 +7,9 @@ md-input-container label{
 }
 
 .full-screen{
-    height:var(--height)
+    height:calc(var(--height) + 24px)
 }
 
-.underToolbar{
+.under-toolbar{
     height: calc(var(--height) - 56px)
 }
