@@ -21,3 +21,46 @@ md-sidenav.md-closed.md-locked-open-add-active {
     width: auto !important;
     max-width: 400px !important;
 } 
+
+md-list-item::before, md-list-item .md-list-item-inner::before{
+    min-height: 0px !important;
+}
+.mynav{
+    border-top: 1px solid rgba(158,158,158,0.25);
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.mytab{
+    flex: 1;
+    margin: 0;
+    padding: 6px 8px;
+}
+.md-button.md-default-theme:not([disabled]):hover, 
+.md-button:not([disabled]):hover {
+    background-color: rgba(0,0,0,0);
+    color: rgb(40,53,147);
+}
+
+.divider{
+    width:1px;
+    background-color:rgba(158,158,158,0.25);
+}
+
+.underscore{
+    width: 50%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    background-color: rgba(40,53,147,0.8);
+    transition: left 0.5s;
+}
+.right{
+    left: 50%;
+    transition: left 0.5s;
+}

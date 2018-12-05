@@ -2,11 +2,5 @@ angular.module('userApp').component('flCard',{
     templateUrl:'/template/directives/card.html',
     controller:function($scope){
         console.log('controller')
-    },
-    compile:function(){
-        console.log('compile')
-    },
-    link:function(){
-        console.log('link')
     }
 })

@@ -6,18 +6,16 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
     $mdThemingProvider.theme('docs-dark', 'default')
       .primaryPalette('blue');
 
-    
+    var state = [
+        {
+            name:'card',
+            url:'/card',
+            component:'flCard'
+        }
+    ];
 
-    // var state = [
-    //     {
-    //         name:'home',
-    //         url:'/home',
-    //         component:'flCard'
-    //     }
-    // ];
-
-    // state.forEach(state => {
-    //     $stateProvider.state(state);
-    // });
-    // $urlRouterProvider.when('','/home');
+    state.forEach(state => {
+        $stateProvider.state(state);
+    });
+    $urlRouterProvider.when('','/card');
 })

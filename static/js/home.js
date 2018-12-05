@@ -1,4 +1,4 @@
-angular.module('userApp').controller('homeController',function($scope, $mdSidenav){
+angular.module('userApp').controller('homeController',function($scope, $state){
 
 
     // toggle fullscreen
@@ -24,8 +24,15 @@ angular.module('userApp').controller('homeController',function($scope, $mdSidena
         }
     }
 
-    $scope.toggleMenu = function(){
-        $mdSidenav('menu').toggle();
+    $scope.switchTab = function(id){
+        let underscore = angular.element(document.querySelector('.underscore'));
+        if(id == 0){
+            underscore.removeClass('right');
+            $state.go('card');
+
+        } else {
+            underscore.addClass('right');
+        }
     }
 
 })
