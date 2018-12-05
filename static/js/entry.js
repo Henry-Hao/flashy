@@ -11,6 +11,11 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
             name:'card',
             url:'/card',
             component:'flCard'
+        },
+        {
+          name:'newCard',
+          url:'/newCard',
+          component:'newCard'
         }
     ];
 

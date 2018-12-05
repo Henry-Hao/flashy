@@ -2,6 +2,13 @@
 	--height:652px;
 }
 
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('../font/PatrickHand-Regular.ttf');
+}
+/* body{
+    font-family: 'MyWebFont'
+} */
 md-input-container label{
     text-align: left;
 }
@@ -63,4 +70,20 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
 .right{
     left: 50%;
     transition: left 0.5s;
+}
+
+.card-wrapper{
+    padding:10px 20px;
+    height: 100%;
+}
+.card{
+    height: 100%;
+    padding: 5px;
+    background-color:rgba(158,158,158,0.15);
+    border:1px solid rgba(40,53,147,0.8);
+    border-radius: 20px;
+    font-family: 'MyWebFont';
+}
+.hint{
+    padding:1px 20px;
 }

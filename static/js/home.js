@@ -32,6 +32,7 @@ angular.module('userApp').controller('homeController',function($scope, $state){
 
         } else {
             underscore.addClass('right');
+            $state.go('newCard');
         }
     }
 
