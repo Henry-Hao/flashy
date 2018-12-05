@@ -4,8 +4,7 @@
             <h1>What is the difference between ng-if and ng-show ? </h1>
         </div>
         <div class="hints">
-            <p class="hint">Hint 1</p>
-            <p class="hint">Hint 2</p>
+            <hint ng-repeat="hint in hints track by $index" hint="hint"></hint>
         </div>
     </div>
 </div>
