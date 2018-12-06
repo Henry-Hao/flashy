@@ -1,10 +1,11 @@
 angular.module('userApp').component('hint',{
     bindings:{
-        hint:'<'
+        hint:'<',
+        index:'<'
     },
     templateUrl:'/template/directives/hint.html',
     
     controller:function($scope){
-        console.log('hint')
+        $scope.show = false;
     }
 })

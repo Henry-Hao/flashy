@@ -1,1 +1,2 @@
-<p class="hint">{{$ctrl.hint.content}}</p>
+<p class="hint" ng-click="show = !show">Hint #{{$ctrl.index}}:</p>
+<p class="hint" ng-show="show">{{$ctrl.hint.content}}</p>

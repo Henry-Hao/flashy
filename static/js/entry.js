@@ -3,8 +3,13 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
     $httpProvider.defaults.xsrfCookieName = 'csrfmiddlewaretoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('blue');
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue',{
+          'default':'900'
+      })
+      .accentPalette('green',{
+          'default':'A200'
+      });
 
     var state = [
         {

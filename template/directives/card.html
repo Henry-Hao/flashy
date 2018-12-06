@@ -1,10 +1,24 @@
 <div class="card-wrapper">
-    <div class="card">
-        <div class="description">
-            <h1>What is the difference between ng-if and ng-show ? </h1>
+    <div class="card" ng-class="{rotate:!frontage}">
+        <div class="front" ng-class="{show:frontage}">
+            <div class="description">
+                <h1>What is the difference between ng-if and ng-show ? </h1>
+            </div>
+            <div class="hints">
+                <hint ng-repeat="hint in hints track by $index" hint="hint" index="$index"></hint>
+            </div>
         </div>
-        <div class="hints">
-            <hint ng-repeat="hint in hints track by $index" hint="hint"></hint>
+        <div class="back" ng-class="{show:!frontage}">
+            <div class="anwser">
+                <h1><code>ng-show</code> use <code>display:none;</code>to control the visibility of elements.<code>ng-if</code> will render the element when expression is valued true. sadddddddddddddddddddddddddddddddddddddddddddd true. sadddddddddddddddddddddddddddddddddddddddddddd true. sadddddddddddddddddddddddddddddddddddddddddddd true. saddddddddddddddddddddddddddddddddddddddddddd</h1>
+            </div>
         </div>
+    </div>
+    <div class="control">
+        <section layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary controlleft" ng-click="frontage = !frontage">Flip</md-button>
+            <md-button class="md-raised md-accent controlmiddle">I know it!</md-button>
+            <md-button class="md-raised md-primary controlright">Next</md-button>
+        </section>
     </div>
 </div>
