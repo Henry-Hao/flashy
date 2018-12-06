@@ -3,7 +3,48 @@
 {% block content %}
 {% verbatim %}
 <div ng-controller="LoginController">
-    <div uib-carousel active='0' no-wrap="true" template-url="/static/bootstrap-template/carousel.html"  >
+    <div id="carousel" class="carousel slide" ng-swipe-left="swipe(1)" ng-swipe-right="swipe(-1)" data-interval="false">
+        <ol class="carousel-indicators" ng-show="showIndicator">
+            <li ng-repeat="page in pages track by $index" data-target="#carousel" data-slide-to={{$index}} ng-class="{active:$first}"></li>
+        </ol>
+        <div class="carousel-inner">
+            <!-- <div ng-repeat="page in pages track by $index" class="carousel-item active full-screen" ng-style="page.style">
+                <div class="carousel-caption d-md-block">
+                    <h1>{{ page.content }}</h1>
+                </div>
+            </div> -->
+            <div ng-repeat="page in pages track by $index" class="carousel-item" ng-style="page.style" ng-class="{active:$first}">
+                <div class="carousel-caption d-md-block">
+                    <h1>{{ page.content }}</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <md-content class="row" style="background-color:rgb(250,255,189);height:{{ height }}">
+                    <form class="offset-3 col-6 form-group" style="display:block;top:25%;position: relative">
+                        {% endverbatim %}
+                        {% csrf_token %}
+                        {% verbatim %}
+                        <md-input-container class="md-block" flex-xs>
+                            <label>Username</label>
+                            <input ng-model="loginInfo.username">
+                        </md-input-container>
+        
+                        <md-input-container class="md-block" flex-xs>
+                            <label>Password</label>
+                            <input type="password" ng-model="loginInfo.password">
+                        </md-input-container>
+        
+                        <md-button class="md-raised md-primary" ng-click="login()">
+                            Login
+                        </md-button>
+                    </form>
+                </md-content>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div uib-carousel active='0' no-wrap="true" template-url="/static/bootstrap-template/carousel.html"  >
         <div uib-slide ng-repeat="page in pages track by $index" index="$index">
             <div ng-style="page.style" class="full-screen">
                 <h1 class="carousel-caption">
@@ -37,7 +78,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 </div>
 {% endverbatim %}
 {% endblock %}

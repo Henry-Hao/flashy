@@ -1,4 +1,4 @@
-var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial','ui.bootstrap']);
+var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial']);
 myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemingProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrfmiddlewaretoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
