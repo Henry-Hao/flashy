@@ -9,6 +9,9 @@
                 <md-icon>Logo</md-icon>
 
                 <h2 flex style="text-align:center" ng-click="toggleFullScreen()">Flashy</h2>
+                <!-- <md-select ng-model="selectSession" style="min-width:200px;">
+                    <md-option ng-repeat="session in sessions" ng-value="session.id">{{session.desc}}</md-option>
+                </md-select> -->
 
                <md-menu md-position-mode="right bottom">
                     <md-button class="md-icon-button" ng-click="$mdMenu.open()">
@@ -16,14 +19,14 @@
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item>
-                            <md-button ui-sref="card">
-                                Cards
+                            <md-button ui-sref="learn">
+                                Learn
                             </md-button>
                         </md-menu-item>
 
                         <md-menu-item>
                             <md-button ui-sref="tag">
-                                Tags
+                                Cards
                             </md-button>
                         </md-menu-item>
 
@@ -43,7 +46,7 @@
                 
             </div>
         </md-toolbar>
-        <ui-view class="under-toolbar" style="display: block;padding-bottom:50px;"></ui-view>
+        <ui-view id="view" class="under-toolbar" style="display: block;padding-bottom:50px;"></ui-view>
         <nav class="mynav">
             <md-button class="mytab" ng-click="switchTab(0)"><md-icon md-svg-src="static/img/book.svg" alt=Home></md-icon>Home</md-button>
             <div class="divider"></div>

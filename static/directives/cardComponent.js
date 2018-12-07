@@ -20,7 +20,7 @@ angular.module('userApp').component('flCard',{
         //next card
         $scope.next = function(){
             const ele = document.querySelector('.front');
-            $animate.addClass(ele, 'transparent').then(function(){
+            $animate.addClass(ele, 'fade').then(function(){
                 $timeout(function(){
                     CardService.getNext().then(
                         function(result){
@@ -34,7 +34,7 @@ angular.module('userApp').component('flCard',{
                             }
 
                             $scope.empty = false;
-                            angular.element(ele).removeClass('transparent');
+                            angular.element(ele).removeClass('fade');
                             $scope.card = result.data;
                             if($scope.card.hints.trim() != '')
                                 $scope.card.hints = $scope.card.hints.trim().split('$$$');

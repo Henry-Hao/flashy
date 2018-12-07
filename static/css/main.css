@@ -130,7 +130,7 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     backface-visibility: hidden;
     display: none;
     opacity: 1;
-    transition: visibility linear 0.1s;
+    transition: opacity linear 0.1s;
 }
 
 .back{
@@ -146,8 +146,8 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     visibility: hidden;
 }
 
-.flayaway{
-    display: none;
+.fade{
+    opacity: 0;
 }
 
 

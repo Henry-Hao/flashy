@@ -13,8 +13,8 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
 
     var state = [
         {
-            name:'card',
-            url:'/card',
+            name:'learn',
+            url:'/learn',
             component:'flCard',
             resolve:{
                 card:function(CardService){
@@ -47,5 +47,5 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
     state.forEach(state => {
         $stateProvider.state(state);
     });
-    $urlRouterProvider.when('','/card');
+    $urlRouterProvider.when('','/learn');
 })
