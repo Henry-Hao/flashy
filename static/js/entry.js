@@ -38,9 +38,14 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
             }
         },
         {
-          name:'newCard',
-          url:'/newCard',
-          component:'newCard'
+            name:'newCard',
+            url:'/newCard',
+            component:'newCard'
+        },
+        {
+            name:'cards',
+            url:'/cards',
+            component:'cardsTable'
         }
     ];
 
