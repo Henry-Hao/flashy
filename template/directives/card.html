@@ -1,24 +1,30 @@
 <div class="card-wrapper">
-    <div class="card" ng-class="{rotate:!frontage}">
+    <div class="card" ng-class="{rotate:!frontage}" >
         <div class="front" ng-class="{show:frontage}">
-            <div class="description">
-                <h1>What is the difference between ng-if and ng-show ? </h1>
+            <div class="description" ng-if="!empty">
+                <h1>Description:</h1>
+                <h1>{{ card.description}} </h1>
             </div>
-            <div class="hints">
-                <hint ng-repeat="hint in hints track by $index" hint="hint" index="$index"></hint>
+            <div class="hints" ng-if="!empty">
+                <hint ng-repeat="hint in card.hints track by $index" hint="hint" index="$index"></hint>
+            </div>
+            <div ng-if="empty" style="visibility: visible;">
+                No cards available or you have gone through all the cards. Go add some new cards!!
             </div>
         </div>
         <div class="back" ng-class="{show:!frontage}">
             <div class="anwser">
-                <h1><code>ng-show</code> use <code>display:none;</code>to control the visibility of elements.<code>ng-if</code> will render the element when expression is valued true. sadddddddddddddddddddddddddddddddddddddddddddd true. sadddddddddddddddddddddddddddddddddddddddddddd true. sadddddddddddddddddddddddddddddddddddddddddddd true. saddddddddddddddddddddddddddddddddddddddddddd</h1>
+                <h1>Anwser:</h1>
+                <h1 ng-bind-html="card.anwser"></h1>
             </div>
         </div>
     </div>
-    <div class="control">
+    <div class="control" ng-class="{transparent:empty}">
         <section layout="row" layout-align="center center">
-            <md-button class="md-raised md-primary controlleft" ng-click="frontage = !frontage">Flip</md-button>
-            <md-button class="md-raised md-accent controlmiddle">I know it!</md-button>
-            <md-button class="md-raised md-primary controlright">Next</md-button>
+            <md-button class="md-raised md-primary controlleft"  ng-click="flip()">Flip</md-button>
+            <md-button class="md-raised md-accent controlmiddle" ng-click="knowACard(card)">I know it!</md-button>
+            <md-button class="md-raised md-primary controlright" ng-click="next()">Next</md-button>
         </section>
     </div>
+   
 </div>

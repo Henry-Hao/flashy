@@ -1,4 +1,4 @@
-var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial']);
+var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial','ngSanitize']);
 myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemingProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrfmiddlewaretoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -15,7 +15,27 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
         {
             name:'card',
             url:'/card',
-            component:'flCard'
+            component:'flCard',
+            resolve:{
+                card:function(CardService){
+                    return CardService.getFirst().then(
+                        function(result){
+                             //error
+                             if(typeof(result.data) == "object" && 'error' in result.data){
+                                if(result.data.error == '535'){
+                                    return null;
+                                }
+                            }
+                            if(result.data.hints.trim() != '')
+                                result.data.hints = result.data.hints.trim().split('$$$');
+                            return result.data;
+                        },
+                        function(result){
+                            
+                        }
+                    )
+                }
+            }
         },
         {
           name:'newCard',

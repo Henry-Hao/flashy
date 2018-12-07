@@ -129,6 +129,8 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
 .front{
     backface-visibility: hidden;
     display: none;
+    opacity: 1;
+    transition: visibility linear 0.1s;
 }
 
 .back{
@@ -140,5 +142,12 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     display: block;
 }
 
+.transparent{
+    visibility: hidden;
+}
+
+.flayaway{
+    display: none;
+}
 
 

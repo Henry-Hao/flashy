@@ -76,11 +76,16 @@ WSGI_APPLICATION = 'flashy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'flashy',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'flashy',
+        'PASSWORD': 'flashy',
     }
 }
 
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
