@@ -12,15 +12,6 @@ angular.module('userApp').component('cardsTable',{
                 }
             );
 
-            CardService.getAllCards().then(
-                function(result){
-                    $scope.cards = result.data;
-                    // $("#table").bootstrapTable('refresh');
-                },
-                function(result){
-                    console.log('error');
-                }
-            )
         }
 
         $scope.data = [
@@ -108,7 +99,7 @@ angular.module('userApp').component('cardsTable',{
             $scope.searchTerm = "";
 
             if(typeof($scope.item.hints) == 'string')
-                $scope.item.hints = $scope.item.hints.split(',')
+                $scope.item.hints = $scope.item.hints.split(',').map((value)=>decodeURIComponent(value));
             $scope.close = function(){
                 $mdDialog.hide();
             };
@@ -127,15 +118,11 @@ angular.module('userApp').component('cardsTable',{
                 $scope.searchTerm = "";
             }
 
-            $element.find('input').on('keydown', function(ev) {
-                ev.stopPropagation();
-            });
-
             $scope.save = function(){
                 let card = {
                     id:$scope.item.id,
                     desc:$scope.item.description,
-                    hints:$scope.item.hints.join(','),
+                    hints:$scope.item.hints.map((value)=>encodeURIComponent(value)).join(','),
                     tag:$scope.selectedTags,
                     anwser:$scope.item.anwser
                 }
