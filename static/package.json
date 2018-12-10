@@ -15,6 +15,7 @@
     "angular-ui-router": "^1.0.20",
     "angularjs-onsenui": "^1.0.0",
     "bootstrap": "^4.1.2",
+    "bootstrap-table": "^1.12.2",
     "jquery": "^3.3.1"
   },
   "devDependencies": {},

@@ -1,4 +1,4 @@
-var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial','ngSanitize']);
+var myApp = angular.module('userApp',['ng','ui.router','ngTouch','ngAnimate','ngMaterial','ngSanitize','bsTable']);
 myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemingProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrfmiddlewaretoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -10,6 +10,7 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
       .accentPalette('green',{
           'default':'A200'
       });
+    $.fn.bootstrapTable.defaults.minWidth = 374;
 
     var state = [
         {

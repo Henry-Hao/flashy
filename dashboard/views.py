@@ -4,6 +4,7 @@ from django.template.response import TemplateResponse
 from django.contrib.auth import login as authlogin, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import ObjectDoesNotExist
 from flashy.settings import BASE_DIR
 from dashboard.models import Card, Session, Account, Tag
 from dashboard import error_code as ERRORCODE
@@ -86,7 +87,7 @@ def api(request,action=None):
                 else:
                     return HttpResponse(json.dumps({'error':ERRORCODE.CARDS_EMPTY}),content_type="text/json")
         elif action == 'knowACard' and request.method == 'PUT':
-            session = request.user.account.Session;
+            session = request.user.account.Session
             try:
                 card = Card.objects.get(pk=json.loads(request.body.decode())['id'])
                 session.KnownCard.add(card)
@@ -94,5 +95,29 @@ def api(request,action=None):
                 return HttpResponse('success')
             except Exception:
                 return HttpResponseServerError()
+        elif action == 'getAllCards' and request.method == 'GET':
+            cards = [card.as_dict() for card in Card.objects.all()]
+            return HttpResponse(json.dumps(cards), content_type="text/json")
+        elif action == 'getAllTags' and request.method == 'GET':
+            tags = [tag.as_dict() for tag in Tag.objects.all()]
+            return HttpResponse(json.dumps(tags),content_type="text/json")
+        elif action == 'updateCard' and request.method == 'POST':
+            card = json.loads(request.body.decode())
+            try:
+                card_db = Card.objects.get(pk=card['id'])
+                card_db.Description = card['desc']
+                card_db.Anwser = card['anwser']
+                card_db.Hints = card['hints']
+                card_db.Tag.clear()
+                for tag_id in card['tag']:
+                    try:
+                        tag = Tag.objects.get(pk=tag_id)
+                        card_db.Tag.add(tag)
+                    except Exception as e:
+                        pass
+                card_db.save()
+                return HttpResponse('success')
+            except ObjectDoesNotExist:
+                print("Object doesn't exist while updating card:%s", card['id'])
 
         return HttpResponseServerError()

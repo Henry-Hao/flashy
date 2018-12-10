@@ -72,7 +72,7 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     transition: left 0.5s;
 }
 
-.card-wrapper{
+.wrapper{
     padding:10px 20px;
     height: 100%;
     display: flex;
@@ -150,4 +150,29 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     opacity: 0;
 }
 
+.bs-th{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
 
+
+.selectdemoSelectHeader {
+    /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */ }
+    .selectdemoSelectHeader .demo-header-searchbox {
+      border: none;
+      outline: none;
+      height: 100%;
+      width: 100%;
+      padding: 0; }
+    .selectdemoSelectHeader .demo-select-header {
+      box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+      padding-left: 10.667px;
+      height: 48px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: auto; }
+    .selectdemoSelectHeader md-content._md {
+      max-height: 240px; }

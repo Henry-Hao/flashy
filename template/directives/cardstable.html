@@ -1,1 +1,15 @@
-Table
+<div class="wrapper">
+    <div>
+        <legend>Tags</legend>
+        <md-checkbox>
+            All
+        </md-checkbox>
+        <md-checkbox ng-repeat="tag in tags">
+            {{ tag.desc }}
+        </md-checkbox>
+    </div>
+    <table bs-table-control="tableParam"  id="table">
+
+    </table>
+    
+</div>

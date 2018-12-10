@@ -8,6 +8,15 @@ angular.module('userApp').service('CardService',function($http){
         },
         knowACard:function(card){
             return $http.put('/api/knowACard',{id:card.id});
+        },
+        getAllTags:function(){
+            return $http.get('/api/getAllTags',{cache:false});
+        },
+        updateCard:function(card){
+            return $http.post('/api/updateCard',card);
+        },
+        getAllCards:function(){
+            return $http.get('/api/getAllCards',{cache:false});
         }
     }
 })

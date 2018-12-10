@@ -9,12 +9,19 @@ class Tag(models.Model):
     def __str__(self):
         return self.Description
 
+    def as_dict(self):
+        return {
+            'id':self.pk,
+            'desc':self.Description
+        }
+
 
 class Card(models.Model):
     Description = models.CharField(max_length=256)
     Hints = models.CharField(max_length=256, null=True, blank=True)
-    Answer = models.CharField(max_length=1024)
+    Anwser = models.CharField(max_length=1024)
     Tag = models.ManyToManyField(Tag)
+    Updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.Description
@@ -24,12 +31,13 @@ class Card(models.Model):
             "id":self.pk,
             "description":self.Description,
             "hints":self.Hints,
-            "anwser":self.Answer,
-            "tag":[]
+            "anwser":self.Anwser,
+            "tag":[],
+            "updated":str(self.Updated)
         }
 
         for tag in self.Tag.all():
-            ret['tag'].append(str(tag))
+            ret['tag'].append(str(tag.id))
         
         ret['tag'] = ",".join(ret['tag'])
         return ret
