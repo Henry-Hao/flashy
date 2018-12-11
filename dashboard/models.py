@@ -18,9 +18,9 @@ class Tag(models.Model):
 
 class Card(models.Model):
     Description = models.CharField(max_length=256)
-    Hints = models.CharField(max_length=256, null=True, blank=True)
+    Hints = models.CharField(max_length=256, blank=True)
     Anwser = models.CharField(max_length=1024)
-    Tag = models.ManyToManyField(Tag)
+    Tag = models.ManyToManyField(Tag, blank=True)
     Updated = models.DateField(auto_now=True)
 
     def __str__(self):
@@ -44,7 +44,7 @@ class Card(models.Model):
 
 class Session(models.Model):
     Description = models.CharField(max_length=128)
-    KnownCard = models.ManyToManyField(Card)
+    KnownCard = models.ManyToManyField(Card, blank=True)
 
     def __str__(self):
         return self.Description
