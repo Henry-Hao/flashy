@@ -11,6 +11,7 @@ from dashboard import error_code as ERRORCODE
 import os
 import json
 import itertools
+from urllib.parse import unquote as decodeURIComponent
 
 # Create your views here.
 
@@ -52,7 +53,6 @@ def get_template(request, filename=""):
         return HttpResponseServerError()
 
 def api(request,action=None):
-    pass
     if action is None:
         return HttpResponseServerError()
     else:
@@ -96,7 +96,12 @@ def api(request,action=None):
             except Exception:
                 return HttpResponseServerError()
         elif action == 'getAllCards' and request.method == 'GET':
-            cards = [card.as_dict() for card in Card.objects.all()]
+            if 'tags' in request.GET:
+                tags = decodeURIComponent(request.GET['tags']).split(',')
+                cards = Card.objects.filter(Tag__pk__in=tags).distinct()
+                cards = [card.as_dict() for card in cards]
+            else:
+                cards = [card.as_dict() for card in Card.objects.all()]
             return HttpResponse(json.dumps(cards), content_type="text/json")
         elif action == 'getAllTags' and request.method == 'GET':
             tags = [tag.as_dict() for tag in Tag.objects.all()]

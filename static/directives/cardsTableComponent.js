@@ -1,11 +1,15 @@
 angular.module('userApp').component('cardsTable',{
     templateUrl:'/template/directives/cardsTable.html',
-    controller:function($scope, CardService, $mdDialog, $element){
+    controller:function($scope, CardService, $mdDialog, $element, $rootScope){
 
+        $scope.selectedTags = [];
         this.$onInit = function(){
             CardService.getAllTags().then(
                 function(result){
                     $scope.tags = result.data;
+                    $scope.tags.forEach(tag => {
+                        $scope.selectedTags.push(tag['id']);
+                    });
                 },
                 function(result){
                     console.log('error');
@@ -14,30 +18,55 @@ angular.module('userApp').component('cardsTable',{
 
         }
 
-        $scope.data = [
-            {
-                id:1,
-                desc:'desc11111111111111111111111111111111111111111111111111111',
-                tag:"1,2,3,4",
-                hint:'hint1,hint2',
-                anwser:'anwser1111',
-                time:'2018-12-04'
-            },
-            {
-                id:2,
-                desc:'desc2',
-                tag:"2",
-                hint:'hint3,hint4',
-                anwser:'anwser222',
-                time:'2018-12-12'
+        $scope.toggle = function(id){
+            let idx = $scope.selectedTags.indexOf(id);
+            if(idx == -1){
+                $scope.selectedTags.push(id);
+            } else {
+                $scope.selectedTags.splice(idx,1);
             }
-        ];
 
+            if($scope.selectedTags.length == 0){
+                if($scope.tags.length > 0)
+                    $scope.selectedTags = new Array(1).fill($scope.tags[0].id);
+            }
+        }
 
-        
+        $scope.isChecked = function(id){
+            return $scope.selectedTags.indexOf(id) > -1;
+        }
+
+        $scope.isCheckedAll = function(){
+            return $scope.selectedTags.length === $scope.tags.length;
+        }
+
+        $scope.toggleAll = function(){
+            if($scope.selectedTags.length === $scope.tags.length){
+                if($scope.tags.length > 0)
+                    $scope.selectedTags = new Array(1).fill($scope.tags[0].id);
+            } else if ($scope.selectedTags.length === 0 || $scope.selectedTags.length > 0) {
+                $scope.selectedTags = $scope.tags.slice(0).map((ele) => ele.id);
+            }
+        }
+
+        $scope.isIndeterminate = function() {
+            return ($scope.selectedTags.length !== 0 &&
+                $scope.selectedTags.length !== $scope.tags.length);
+        };
+
+        //reload when selected tags change
+        $scope.$watchCollection("selectedTags",function(newValue, oldValue){
+                $("#table").bootstrapTable('refresh',{
+                    url:'/api/getAllCards',
+                    query:{
+                        tags:encodeURIComponent($scope.selectedTags.join(','))
+                    }
+                })
+        })
+
         $scope.tableParam={
             options:{
-                url:'/api/getAllCards',
+                // url:'/api/getAllCards',
                 mobileResponsive:true,
                 columns:[
                     {
@@ -75,21 +104,17 @@ angular.module('userApp').component('cardsTable',{
             }
         }
 
-        showDialog = function(ev, row){
+        $('#table').on('click-row.bs.table',function(event,row,element,field){
             $mdDialog.show({
                 controller:DialogController,
                 templateUrl:'template/directives/editcard.html',
                 parent:angular.element(document.body),
-                targetEvent:ev,
+                targetEvent:event,
                 locals: {
                     item: row,
                     tags: $scope.tags
                 },
             });
-        };
-
-        $('#table').on('click-row.bs.table',function(event,row,element,field){
-            showDialog(event, row);
         })
 
         DialogController = function($scope, $mdDialog, item, tags, $element){
