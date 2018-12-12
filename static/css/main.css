@@ -13,6 +13,10 @@ md-input-container label{
     text-align: left;
 }
 
+md-input-container{
+    padding-left: 0px !important;
+}
+
 .full-screen{
     height:calc(var(--height) + 24px)
 }

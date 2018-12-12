@@ -28,7 +28,7 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
                                 }
                             }
                             if(result.data.hints.trim() != '')
-                                result.data.hints = result.data.hints.trim().split('$$$');
+                                result.data.hints = result.data.hints.trim().split(',');
                             return result.data;
                         },
                         function(result){
@@ -41,7 +41,20 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
         {
             name:'newCard',
             url:'/newCard',
-            component:'newCard'
+            component:'newCard',
+            resolve:{
+                tags:function(CardService){
+                    return CardService.getAllTags().then(
+                        function(result){
+                            return result.data;
+                        },
+                        function(result){
+                            console.log('error');
+                            return null;
+                        }
+                    );
+                }
+            }
         },
         {
             name:'cards',

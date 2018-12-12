@@ -13,10 +13,13 @@ angular.module('userApp').service('CardService',function($http){
             return $http.get('/api/getAllTags',{cache:false});
         },
         updateCard:function(card){
-            return $http.post('/api/updateCard',card);
+            return $http.put('/api/updateCard',card);
         },
         getAllCards:function(){
             return $http.get('/api/getAllCards',{cache:false});
+        },
+        createCard:function(card){
+            return $http.post('/api/createCard',card);
         }
     }
 })

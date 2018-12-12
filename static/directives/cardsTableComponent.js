@@ -133,55 +133,55 @@ angular.module('userApp').component('cardsTable',{
         $('#table').on('click-row.bs.table',function(event,row,element,field){
             $mdDialog.show({
                 controller:DialogController,
-                templateUrl:'template/directives/editcard.html',
+                // templateUrl:'template/directives/editcard.html',
+                template:
+                `<md-content>
+                    <md-toolbar class="md-hue-2" style="margin-bottom:5px">
+                        <div class="md-toolbar-tools" style="display:flex;justify-content:space-between;">
+                            <md-button class="md-icon-button" ng-click="close()">
+                                <md-icon md-svg-icon="static/img/back.svg"></md-icon>
+                            </md-button>
+                            <h2 style="text-align:center">Modify Cards</h2>
+                            <md-button ng-click="save()">
+                                Save
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+                    <card-modal card="card" tags="tags"></card-modal>
+                </md-content>`,
                 parent:angular.element(document.body),
                 targetEvent:event,
                 locals: {
-                    item: row,
+                    card: row,
                     tags: $scope.tags
                 },
             });
         })
 
-        DialogController = function($scope, $mdDialog, item, tags, $element){
-            $scope.item = item;
+        DialogController = function($scope, $mdDialog, card, tags, $element){
+            $scope.card = card;
             $scope.tags = tags;
-            $scope.selectedTags = item.tag.split(',');
-            $scope.searchTerm = "";
-
-            if(typeof($scope.item.hints) == 'string')
-                $scope.item.hints = $scope.item.hints.split(',').map((value)=>decodeURIComponent(value));
             $scope.close = function(){
                 $mdDialog.hide();
             };
 
-            $scope.add = function(){
-                $scope.item.hints.push('');
-            }
-
-            $scope.remove = function(index){
-                if($scope.item.hints.length == 1)
-                    return;
-                $scope.item.hints.splice(index,1);
-            }
-
-            $scope.clearSearchTerm = function(){
-                $scope.searchTerm = "";
-            }
-
             $scope.save = function(){
+                if($(".ng-invalid").length != 0){
+                    showToast('Please dont contain comma in hints.')
+                    return
+                }
                 let card = {
-                    id:$scope.item.id,
-                    desc:$scope.item.description,
-                    hints:$scope.item.hints.map((value)=>encodeURIComponent(value)).join(','),
-                    tag:$scope.selectedTags,
-                    anwser:$scope.item.anwser
+                    id:$scope.card.id,
+                    desc:$scope.card.description,
+                    hints:$scope.card.hints.map((value)=>encodeURIComponent(value)).join(','),
+                    tag:$scope.card.tag.join(','),
+                    anwser:$scope.card.anwser
                 }
                 CardService.updateCard(card).then(
                     function(result){
                         if(typeof(result.data) == "object" && 'error' in result.data){
                             if(result.data.error == '535'){
-
+    
                             }
                             return;
                         }
@@ -189,10 +189,11 @@ angular.module('userApp').component('cardsTable',{
                             location.reload();
                     },
                     function(result){
-
+    
                     }
                 )
             };
+
         }
     }
 })

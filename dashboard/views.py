@@ -106,7 +106,7 @@ def api(request,action=None):
         elif action == 'getAllTags' and request.method == 'GET':
             tags = [tag.as_dict() for tag in Tag.objects.all()]
             return HttpResponse(json.dumps(tags),content_type="text/json")
-        elif action == 'updateCard' and request.method == 'POST':
+        elif action == 'updateCard' and request.method == 'PUT':
             card = json.loads(request.body.decode())
             try:
                 card_db = Card.objects.get(pk=card['id'])
@@ -124,5 +124,20 @@ def api(request,action=None):
                 return HttpResponse('success')
             except ObjectDoesNotExist:
                 print("Object doesn't exist while updating card:%s", card['id'])
+        elif action == 'createCard' and request.method == 'POST':
+            card = json.loads(request.body.decode())
+            try:
+                card_db = Card.objects.create(Description=card['desc'],Anwser=card['anwser'], Hints = card['hints'])
+                card_db.Tag.clear()
+                for tag_id in card['tag']:
+                    try:
+                        tag = Tag.objects.get(pk=tag_id)
+                        card_db.Tag.add(tag)
+                    except Exception as e:
+                        pass
+                card_db.save()
+                return HttpResponse('success')
+            except ObjectDoesNotExist:
+                print("Create new card failed:%s", card)
 
         return HttpResponseServerError()

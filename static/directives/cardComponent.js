@@ -37,7 +37,7 @@ angular.module('userApp').component('flCard',{
                             angular.element(ele).removeClass('fade');
                             $scope.card = result.data;
                             if($scope.card.hints.trim() != '')
-                                $scope.card.hints = $scope.card.hints.trim().split('$$$');
+                                $scope.card.hints = $scope.card.hints.trim().split(',');
                             $scope.$broadcast('closeHint');
                         },
                         function(result){
