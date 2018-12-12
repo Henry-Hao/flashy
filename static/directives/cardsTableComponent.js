@@ -1,6 +1,6 @@
 angular.module('userApp').component('cardsTable',{
     templateUrl:'/template/directives/cardsTable.html',
-    controller:function($scope, CardService, $mdDialog, $element, $rootScope){
+    controller:function($scope, CardService, $mdDialog, $mdToast){
 
         $scope.selectedTags = [];
         this.$onInit = function(){
@@ -18,6 +18,29 @@ angular.module('userApp').component('cardsTable',{
 
         }
 
+        showToast = function(content) {
+            toastOpen = true;
+            $mdToast.show({
+                hideDelay   : 1000,
+                position    : 'top right',
+                controller  : function($scope, $mdToast){
+                    $scope.closeToast = function(){
+                        $mdToast.hide();
+                    }
+                },
+                template : `
+                <md-toast>
+                    <span class="md-toast-text" flex>${content}</span>
+                    <md-button ng-click="closeToast()">
+                        Close
+                    </md-button>
+                </md-toast>
+                `
+            });
+        };
+
+        
+
         $scope.toggle = function(id){
             let idx = $scope.selectedTags.indexOf(id);
             if(idx == -1){
@@ -27,8 +50,11 @@ angular.module('userApp').component('cardsTable',{
             }
 
             if($scope.selectedTags.length == 0){
-                if($scope.tags.length > 0)
+                if($scope.tags.length > 0){
                     $scope.selectedTags = new Array(1).fill($scope.tags[0].id);
+                    showToast('Check at least one tag.');
+                }
+                    
             }
         }
 
