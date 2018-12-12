@@ -3,7 +3,7 @@ angular.module('userApp').component('cardsTable',{
     controller:function($scope, CardService, $mdDialog, $mdToast, $state){
 
         $scope.selectedTags = [];
-        dig = '';
+        $scope.tags = [];
         this.$onInit = function(){
             CardService.getAllTags().then(
                 function(result){

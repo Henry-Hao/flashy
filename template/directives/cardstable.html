@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div>
         <legend>Tags</legend>
-        <md-checkbox ng-checked="true" ng-checked="isCheckedAll()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
+        <md-checkbox ng-checked="isCheckedAll()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
             All
         </md-checkbox>
         <md-checkbox ng-repeat="tag in tags" ng-checked="isChecked(tag.id)" ng-click="toggle(tag.id)">
