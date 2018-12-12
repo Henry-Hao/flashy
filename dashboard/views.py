@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.http.response import HttpResponse, Http404, HttpResponseForbidden, HttpResponseServerError
+from django.shortcuts import render, reverse
+from django.http.response import HttpResponse, Http404, HttpResponseForbidden, HttpResponseServerError, HttpResponseRedirect
 from django.template.response import TemplateResponse
-from django.contrib.auth import login as authlogin, authenticate
+from django.contrib.auth import login as authlogin, authenticate, logout as authlogout
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import ObjectDoesNotExist
@@ -25,6 +25,8 @@ def index(request):
 def extract_card_pk(cards):
     return [card.pk for card in cards]
 
+def refreshSession(request):
+    request.session['cards'] = extract_card_pk(Card.objects.all())
 
 def login(request):
     if request.method != 'POST':
@@ -39,8 +41,12 @@ def login(request):
         return HttpResponseForbidden('Authentication failed')
 
     authlogin(request, user)
-    request.session['cards'] = extract_card_pk(Card.objects.all())
+    refreshSession(request)
     return HttpResponse("success")
+
+def logout(request):
+    authlogout(request)
+    return HttpResponseRedirect(reverse('index'))
 
 def get_template(request, filename=""):
     filename = os.path.join(BASE_DIR, 'template',filename.lower())
@@ -136,8 +142,19 @@ def api(request,action=None):
                     except Exception as e:
                         pass
                 card_db.save()
+                # update cards in the session
+                refreshSession(request)
                 return HttpResponse('success')
-            except ObjectDoesNotExist:
+            except Exception:
                 print("Create new card failed:%s", card)
+        elif action == 'deleteCard' and request.method == 'PUT':
+            id = request.body.decode()
+            try:
+                card = Card.objects.get(pk=id)
+                card.delete()
+                refreshSession(request)
+                return HttpResponse('success')
+            except Exception:
+                print("Delete card failed:%s", id)
 
         return HttpResponseServerError()

@@ -1,8 +1,9 @@
 angular.module('userApp').component('cardsTable',{
     templateUrl:'/template/directives/cardsTable.html',
-    controller:function($scope, CardService, $mdDialog, $mdToast){
+    controller:function($scope, CardService, $mdDialog, $mdToast, $state){
 
         $scope.selectedTags = [];
+        dig = '';
         this.$onInit = function(){
             CardService.getAllTags().then(
                 function(result){
@@ -101,7 +102,7 @@ angular.module('userApp').component('cardsTable',{
                         cellStyle: function cellStyle(value, row, index, field) {
                             return {
                                 classes:"bs-th",
-                                css: {"max-width":"10px"}
+                                css: {"max-width":"40px","width":"40px"}
                             };
                         }
                     },
@@ -122,7 +123,7 @@ angular.module('userApp').component('cardsTable',{
                         cellStyle: function cellStyle(value, row, index, field) {
                             return {
                                 classes:"bs-th",
-                                css: {"max-width":"100px"}
+                                css: {"max-width":"85px","width":"85px"}
                             };
                         }
                     }
@@ -131,9 +132,8 @@ angular.module('userApp').component('cardsTable',{
         }
 
         $('#table').on('click-row.bs.table',function(event,row,element,field){
-            $mdDialog.show({
+            dig = $mdDialog.show({
                 controller:DialogController,
-                // templateUrl:'template/directives/editcard.html',
                 template:
                 `<md-content>
                     <md-toolbar class="md-hue-2" style="margin-bottom:5px">
@@ -142,7 +142,10 @@ angular.module('userApp').component('cardsTable',{
                                 <md-icon md-svg-icon="static/img/back.svg"></md-icon>
                             </md-button>
                             <h2 style="text-align:center">Modify Cards</h2>
-                            <md-button ng-click="save()">
+                            <md-button ng-click="delete($event)" class="md-raised md-warn"  style="min-width:25px">
+                                Delete
+                            </md-button>
+                            <md-button ng-click="save()" style="min-width:25px">
                                 Save
                             </md-button>
                         </div>
@@ -164,6 +167,42 @@ angular.module('userApp').component('cardsTable',{
             $scope.close = function(){
                 $mdDialog.hide();
             };
+
+            $scope.delete = function(ev){
+                const confirm = $mdDialog.confirm()
+                .title('Are you sure to delete this card?')
+                .textContent('This operation gonna be irreversable.')
+                .targetEvent(ev)
+                .multiple(true)
+                .ok('Delete')
+                .cancel('Cancel');
+
+                $mdDialog.show(confirm)
+                .then(
+                    function(){
+                        //delete
+                        CardService.removeCard($scope.card.id).then(
+                            function(result){
+                                if(typeof(result.data) == "object" && 'error' in result.data){
+                                    if(result.data.error == '535'){
+            
+                                    }
+                                    return;
+                                }
+                                if(result.data == 'success')
+                                    location.reload();
+                                    angular.element(document.querySelector('.underscore')).addClass('right');
+                            },
+                            function(result){
+
+                            }
+                        )
+                    },
+                    function(){
+                        //cancel
+                    }
+                )
+            }
 
             $scope.save = function(){
                 if($(".ng-invalid").length != 0){
@@ -187,6 +226,7 @@ angular.module('userApp').component('cardsTable',{
                         }
                         if(result.data == 'success')
                             location.reload();
+                            angular.element(document.querySelector('.underscore')).addClass('right');
                     },
                     function(result){
     

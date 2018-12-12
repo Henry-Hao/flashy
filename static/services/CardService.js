@@ -20,6 +20,9 @@ angular.module('userApp').service('CardService',function($http){
         },
         createCard:function(card){
             return $http.post('/api/createCard',card);
+        },
+        removeCard:function(id){
+            return $http.put('/api/deleteCard',id);
         }
     }
 })

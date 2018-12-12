@@ -4,7 +4,7 @@ angular.module('userApp').component('newCard',{
     },
     templateUrl:'/template/directives/newCard.html',
     // template:'<div class="wrapper"><card-modal item="item" tags="tags"></card-modal></div>',
-    controller:function($scope, CardService, $mdToast){
+    controller:function($scope, CardService, $mdToast,$state){
         $scope.card = {
             hints:"",
             tag:[],
@@ -55,8 +55,11 @@ angular.module('userApp').component('newCard',{
                         }
                         return;
                     }
-                    if(result.data == 'success')
-                        location.reload();
+                    if(result.data == 'success'){
+                        angular.element(document.querySelector('.underscore')).removeClass('right');
+                        $state.go('learn');
+                    }
+                        
                 },
                 function(result){
 
