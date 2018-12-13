@@ -6,8 +6,8 @@
     <md-input-container md-no-float ng-repeat="hint in card.hints track by $index">
         <label>Hint{{$index+1}}</label>
         <input ng-model="card.hints[$index]" md-maxlength="120" pattern="[^,]+">
-        <md-icon ng-if="card.hints.length < 3 && $first" ng-click="add()" style="left: auto;right: -25px;" md-svg-icon="static/img/add.svg"></md-icon>
-        <md-icon ng-click="remove($index)" md-svg-icon="static/img/remove.svg"></md-icon>
+        <md-icon ng-if="card.hints.length < 3 && $first" ng-click="add()" style="left: auto;right: -25px;" class="material-icons">add_circle</md-icon>
+        <md-icon ng-click="remove($index)" class="material-icons">remove_circle</md-icon>
     </md-input-container>
 
     <md-input-container style="display: block">

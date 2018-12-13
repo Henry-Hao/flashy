@@ -60,6 +60,11 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
             name:'cards',
             url:'/cards',
             component:'cardsTable'
+        },
+        {
+            name:'tags',
+            url:'/tags',
+            component:'tagsTable'
         }
     ];
 

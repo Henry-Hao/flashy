@@ -83,18 +83,24 @@ angular.module('userApp').component('cardsTable',{
 
         //reload when selected tags change
         $scope.$watchCollection("selectedTags",function(newValue, oldValue){
-                $("#table").bootstrapTable('refresh',{
-                    url:'/api/getAllCards',
-                    query:{
-                        tags:encodeURIComponent($scope.selectedTags.join(','))
+
+                let tags = encodeURIComponent($scope.selectedTags.join(','));
+                CardService.getAllCards(tags).then(
+                    function(result){
+                        $('#table').bootstrapTable('load',result.data);
+                    },
+                    function(result){
+
                     }
-                })
+                )
+
         })
 
         $scope.tableParam={
             options:{
-                // url:'/api/getAllCards',
                 mobileResponsive:true,
+                search:true,
+                searchAlign:'left',
                 columns:[
                     {
                         field:'id',

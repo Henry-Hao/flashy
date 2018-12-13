@@ -1,0 +1,12 @@
+<div class="wrapper" style="overflow:scroll;">
+    <div style="display:flex">
+        <legend style="flex:2">Tags</legend>
+        <md-button style="flex:1" class="md-raised md-primary" ng-click="addTag($event)">Add a new tag</md-button>
+    </div>
+    <div id="toolbar">
+        <md-icon class="material-icons" ng-click="refresh()">refresh</md-icon>
+    </div>
+    <table bs-table-control="tableParam"  id="tagTable">
+    </table>
+    
+</div>

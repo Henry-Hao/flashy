@@ -6,7 +6,7 @@
     <md-content>
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
-                <md-icon>Logo</md-icon>
+                <md-icon class="material-icons"> face </md-icon>
 
                 <h2 flex style="text-align:center" ng-click="toggleFullScreen()">Flashy</h2>
                 <!-- <md-select ng-model="selectSession" style="min-width:200px;">
@@ -15,7 +15,7 @@
 
                <md-menu md-position-mode="right bottom">
                     <md-button class="md-icon-button" ng-click="$mdMenu.open()">
-                        <md-icon md-svg-icon="static/img/menu.svg"></md-icon>
+                        <md-icon class="maerial-icons">menu</md-icon>
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item>
@@ -54,9 +54,9 @@
         </md-toolbar>
         <ui-view id="view" class="under-toolbar" style="display: block;padding-bottom:50px;"></ui-view>
         <nav class="mynav">
-            <md-button class="mytab" ng-click="switchTab(0)"><md-icon md-svg-src="static/img/book.svg" alt=Home></md-icon>Home</md-button>
+            <md-button class="mytab" ng-click="switchTab(0)"><md-icon class="material-icons" alt=Home>book</md-icon>Home</md-button>
             <div class="divider"></div>
-            <md-button class="mytab" ng-click="switchTab(1)"><md-icon md-svg-src="static/img/add.svg" alt=New></md-icon>Add new cards</md-button>
+            <md-button class="mytab" ng-click="switchTab(1)"><md-icon class="material-icons"alt=New>add_circle</md-icon>Add new cards</md-button>
             <div class="underscore"></div>
         </nav>
     </md-content>

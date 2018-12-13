@@ -15,14 +15,20 @@ angular.module('userApp').service('CardService',function($http){
         updateCard:function(card){
             return $http.put('/api/updateCard',card);
         },
-        getAllCards:function(){
-            return $http.get('/api/getAllCards',{cache:false});
+        getAllCards:function(tags){
+            return $http.post('/api/getAllCards',{tags:tags});
         },
         createCard:function(card){
             return $http.post('/api/createCard',card);
         },
         removeCard:function(id){
             return $http.put('/api/deleteCard',id);
+        },
+        removeTag:function(id){
+            return $http.delete(`/api/deleteTag?id=${id}`);
+        },
+        addTag:function(tag){
+            return $http.post('/api/createTag',{tag:tag});
         }
     }
 })

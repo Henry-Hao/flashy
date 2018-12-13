@@ -101,13 +101,16 @@ def api(request,action=None):
                 return HttpResponse('success')
             except Exception:
                 return HttpResponseServerError()
-        elif action == 'getAllCards' and request.method == 'GET':
-            if 'tags' in request.GET:
-                tags = decodeURIComponent(request.GET['tags']).split(',')
-                cards = Card.objects.filter(Tag__pk__in=tags).distinct()
-                cards = [card.as_dict() for card in cards]
-            else:
+        elif action == 'getAllCards' and request.method == 'POST':
+            if request.body == b'':
                 cards = [card.as_dict() for card in Card.objects.all()]
+            else:
+                tags = decodeURIComponent(json.loads(request.body.decode())['tags']).split(',')
+                if len(tags) == 1 and tags[0] == '':
+                    cards = cards = [card.as_dict() for card in Card.objects.all()]
+                else:
+                    cards = Card.objects.filter(Tag__pk__in=tags).distinct()
+                    cards = [card.as_dict() for card in cards]
             return HttpResponse(json.dumps(cards), content_type="text/json")
         elif action == 'getAllTags' and request.method == 'GET':
             tags = [tag.as_dict() for tag in Tag.objects.all()]
@@ -156,5 +159,24 @@ def api(request,action=None):
                 return HttpResponse('success')
             except Exception:
                 print("Delete card failed:%s", id)
+        elif action == 'deleteTag' and request.method == 'DELETE':
+            id = request.GET['id']
+            try:
+                tag = Tag.objects.get(pk=id)
+                tag.delete()
+                refreshSession(request)
+                return HttpResponse('success')
+            except Exception:
+                print("Delete tag failed:%s", id)
+        elif action == 'createTag' and request.method == 'POST':
+            tag_desc = json.loads(request.body.decode())['tag']
+            try:
+                exist = Tag.objects.filter(Description__iexact=tag_desc)
+                if len(Tag.objects.filter(Description__iexact=tag_desc)) != 0:
+                    return HttpResponse(json.dumps({'error':ERRORCODE.TAG_DUPLICATE}), content_type="text/json")
+                tag = Tag.objects.create(Description=tag_desc)
+                return HttpResponse('success')
+            except Exception:
+                print("Create tag failed:%s", tag_desc)
 
         return HttpResponseServerError()
