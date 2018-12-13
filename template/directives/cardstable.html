@@ -1,12 +1,25 @@
 <div class="wrapper">
     <div>
-        <legend>Tags</legend>
-        <md-checkbox ng-checked="isCheckedAll()" md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
-            All
-        </md-checkbox>
-        <md-checkbox ng-repeat="tag in tags" ng-checked="isChecked(tag.id)" ng-click="toggle(tag.id)">
-            {{ tag.desc }}
-        </md-checkbox>
+        
+        <md-input-container style="display: block">
+            <label>Tags</label>
+    
+            <md-select ng-model="selectedTags"
+                        md-on-close="clearSearchTerm()"
+                        data-md-container-class="selectdemoSelectHeader"
+                        multiple>
+                <md-select-header class="demo-select-header">
+                    <input ng-model="searchTerm"
+                        type="search"
+                        placeholder="Search for a tag.."
+                        class="demo-header-searchbox md-text">
+                </md-select-header>
+                <md-optgroup label="vegetables">
+                    <md-option ng-value="tag.id+''" ng-repeat="tag in tags |
+                    filter:searchTerm">{{tag.desc}}</md-option>
+                </md-optgroup>
+                </md-select>
+        </md-input-container>
     </div>
     <table bs-table-control="tableParam"  id="table">
 

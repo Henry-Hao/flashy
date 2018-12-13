@@ -1,22 +1,24 @@
 angular.module('userApp').component('cardsTable',{
     templateUrl:'/template/directives/cardsTable.html',
-    controller:function($scope, CardService, $mdDialog, $mdToast, $state){
+    controller:function($scope, CardService, $mdDialog, $mdToast, $stateParams){
 
-        $scope.selectedTags = [];
+        $scope.selectedTags = $stateParams['selectedTags'];
+        $scope.searchTerm = "";
         $scope.tags = [];
         this.$onInit = function(){
             CardService.getAllTags().then(
                 function(result){
                     $scope.tags = result.data;
-                    $scope.tags.forEach(tag => {
-                        $scope.selectedTags.push(tag['id']);
-                    });
                 },
                 function(result){
                     console.log('error');
                 }
             );
 
+        }
+
+        $scope.clearSearchTerm = function(){
+            $scope.searchTerm = "";
         }
 
         showToast = function(content) {
@@ -40,46 +42,6 @@ angular.module('userApp').component('cardsTable',{
             });
         };
 
-        
-
-        $scope.toggle = function(id){
-            let idx = $scope.selectedTags.indexOf(id);
-            if(idx == -1){
-                $scope.selectedTags.push(id);
-            } else {
-                $scope.selectedTags.splice(idx,1);
-            }
-
-            if($scope.selectedTags.length == 0){
-                if($scope.tags.length > 0){
-                    $scope.selectedTags = new Array(1).fill($scope.tags[0].id);
-                    showToast('Check at least one tag.');
-                }
-                    
-            }
-        }
-
-        $scope.isChecked = function(id){
-            return $scope.selectedTags.indexOf(id) > -1;
-        }
-
-        $scope.isCheckedAll = function(){
-            return $scope.selectedTags.length === $scope.tags.length;
-        }
-
-        $scope.toggleAll = function(){
-            if($scope.selectedTags.length === $scope.tags.length){
-                if($scope.tags.length > 0)
-                    $scope.selectedTags = new Array(1).fill($scope.tags[0].id);
-            } else if ($scope.selectedTags.length === 0 || $scope.selectedTags.length > 0) {
-                $scope.selectedTags = $scope.tags.slice(0).map((ele) => ele.id);
-            }
-        }
-
-        $scope.isIndeterminate = function() {
-            return ($scope.selectedTags.length !== 0 &&
-                $scope.selectedTags.length !== $scope.tags.length);
-        };
 
         //reload when selected tags change
         $scope.$watchCollection("selectedTags",function(newValue, oldValue){

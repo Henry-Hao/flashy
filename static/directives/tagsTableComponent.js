@@ -1,6 +1,6 @@
 angular.module('userApp').component('tagsTable',{
     templateUrl:'/template/directives/tagstable.html',
-    controller:function($scope, CardService, $mdDialog, $mdToast){
+    controller:function($scope, CardService, $mdDialog, $mdToast, $state){
 
 
         $scope.tableParam={
@@ -22,8 +22,16 @@ angular.module('userApp').component('tagsTable',{
                 },
                 columns:[
                     {
-                        field:'desc',
                         title:'Description',
+                        formatter:function formatter(value, row, index, field) {
+                            return  `<span class="tag">${row['desc']}</span>`;
+                        },
+                        events:{
+                            'click .tag': function (e, value, row, index) {
+                                $state.go('cards',{selectedTags:[row['id']]});
+                            }
+                        
+                        }
                     },
                     {
                         title:'Remove',

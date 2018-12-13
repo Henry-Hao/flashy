@@ -59,7 +59,10 @@ myApp.config(function($httpProvider,$stateProvider, $urlRouterProvider,$mdThemin
         {
             name:'cards',
             url:'/cards',
-            component:'cardsTable'
+            component:'cardsTable',
+            params:{
+                selectedTags:[]
+            }
         },
         {
             name:'tags',
